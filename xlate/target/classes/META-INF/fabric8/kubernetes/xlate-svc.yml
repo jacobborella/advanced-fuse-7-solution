@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    fabric8.io/git-commit: c623e31d03b888dc7e50c612d6703cde5b07b4b6
+    fabric8.io/iconUrl: img/icons/camel.svg
+    fabric8.io/git-branch: master
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9779"
+  labels:
+    expose: "true"
+    app: xlate
+    provider: fabric8
+    version: 0.0.1-SNAPSHOT
+    group: com.customer.app
+  name: xlate
+spec:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: xlate
+    provider: fabric8
+    group: com.customer.app

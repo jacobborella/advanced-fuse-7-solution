@@ -1,0 +1,30 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "inbound",
+                "projectName": "inbound",
+                "workingDirectory": "/Users/jacobborella/workspace/fuse-experienced-solution/xlate",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "inbound",
+                "projectName": "inbound",
+                "workingDirectory": "/Users/jacobborella/workspace/fuse-experienced-solution/xlate",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}

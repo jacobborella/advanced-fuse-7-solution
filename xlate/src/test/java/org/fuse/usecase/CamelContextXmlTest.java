@@ -1,9 +1,7 @@
-/*package org.fuse.usecase;
-
+package org.fuse.usecase;
 
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
@@ -12,7 +10,7 @@ import org.apache.camel.test.spring.CamelSpringTestSupport;
 import org.junit.Before;
 import org.apache.camel.impl.DefaultExchange;
 import org.junit.Test;
-import javax.jms.JMSException;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class CamelContextXmlTest extends CamelSpringTestSupport {
@@ -54,8 +52,14 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
 	@Produce(uri = "direct:input")
 	protected ProducerTemplate inputEndpoint;
 
-	@EndpointInject(uri = "mock:amqp:queue:q.empi.deim.in")
+	@EndpointInject(uri = "mock:file:todo/out")
     private MockEndpoint mockAccountQueue;
+	@EndpointInject(uri = "mock:file:todo/dlq")
+    private MockEndpoint mockAccountQueue2;
+
+    static {
+        System.setProperty("spring.profiles.active", "test");
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -65,58 +69,21 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
             @Override
             public void configure() throws Exception {
                 replaceFromWith("direct:input");
-                mockEndpointsAndSkip("amqp:*");
+                mockEndpointsAndSkip("file:*");
             }
         });
     }
 
-    @Test
-	public void testPersonRequestOk() throws Exception {
-    	mockAccountQueue.setExpectedCount(1);
-    	
-    	inputEndpoint.sendBody(PERSON_REQ_OK);
-    	
-        mockAccountQueue.assertIsSatisfied();
-        //TODO also check message
-    }
-
-    @Test
-	public void testAMQDown() throws Exception {
-    	mockAccountQueue.whenAnyExchangeReceived(new Processor(){
-        
-            @Override
-            public void process(Exchange exchange) throws Exception {
-                throw new JMSException("No connection to queue.");
-            }
-        });
-        Exchange ex = new DefaultExchange(context);
-        ex.getIn().setBody(PERSON_REQ_OK);
-    	
-        inputEndpoint.send(ex);
-        assertStringContains(ex.getIn().getBody().toString(), "<Comment>Delivery of message failed.</Comment>");
-        assertEquals("500", ex.getIn().getHeader("CamelHttpResponseCode"));
-    }
     
     @Test
     public void testInvalidXML() throws Exception {
         Exchange ex = new DefaultExchange(context);
-        ex.getIn().setBody(PERSON_REQ_INVALID_XML);
-        mockAccountQueue.setExpectedCount(0);
+        ex.getIn().setBody(PERSON_REQ_OK);
+        mockAccountQueue.setExpectedCount(1);
+        mockAccountQueue2.setExpectedCount(0);
         inputEndpoint.send(ex);
-        assertStringContains(ex.getIn().getBody().toString(), "<Comment>Delivery failed because xml format was invalid.</Comment>");
-        assertEquals("500", ex.getIn().getHeader("CamelHttpResponseCode"));
         mockAccountQueue.assertIsSatisfied();
-    }
-
-    @Test
-    public void testNotXML() throws Exception {
-        Exchange ex = new DefaultExchange(context);
-        ex.getIn().setBody(NOT_XML);
-        mockAccountQueue.setExpectedCount(0);
-        inputEndpoint.send(ex);
-        assertStringContains(ex.getIn().getBody().toString(), "<Comment>Delivery failed because xml format was invalid.</Comment>");
-        assertEquals("500", ex.getIn().getHeader("CamelHttpResponseCode"));
-        mockAccountQueue.assertIsSatisfied();
+        mockAccountQueue2.assertIsSatisfied();
     }
 
 	@Override
@@ -124,7 +91,4 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring/camel-context.xml");
 		return ctx; 
 	}
-	
-	
-
-}*/
+}
