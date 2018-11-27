@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="d3ce8a21-b509-497e-b981-92eb1a6e823a" activeEnvironment="Default" name="REST Project 1" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" resourceRoot="" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" id="21d7b7db-78e6-421c-9274-8a7cd10dad75" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:9098" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>http://localhost:9098</con:endpoint></con:endpoints><con:resource name="Demos" path="/cxf/demos" id="7b9ff42f-e2a7-4f21-aee5-e6928f459376"><con:settings/><con:parameters/><con:resource name="match" path="match" id="29ffa627-f55b-466f-bc1f-ac393330c326"><con:settings/><con:parameters/><con:method name="Method 1" id="5c31fe53-16b5-4fde-865f-ca070503bdcc" method="POST"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/xml</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:res="http://www.response.app.customer.com">res:ESBResponse</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:app="http://www.app.customer.com">app:Person</con:element></con:representation><con:representation type="FAULT"><con:mediaType>text/plain</con:mediaType><con:status>400</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" id="f8b0e559-7399-4569-b043-ccd492ee211f" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:9098</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<p:Person xmlns:p="http://www.app.customer.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.app.customer.com PatientDemographics.xsd ">
+
+  <p:age>30</p:age>
+  <p:legalname>
+    <p:given>First</p:given>
+    <p:family>Last</p:family>
+  </p:legalname>
+  <p:fathername>Dad</p:fathername>
+  <p:mothername>Mom</p:mothername>
+  <p:gender xsi:type="p:Code">
+    <p:code>Male</p:code>
+  </p:gender>
+</p:Person>
+]]></con:request><con:originalUri>http://localhost/cxf/demos/match</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:resource></con:interface><con:testSuite id="b2d73b76-0b03-4eaf-b330-cdbc34cffc73" name="TestSuite 1"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="aafee72f-0dd1-4241-a063-c1dd44540fbb" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Test POST - Ok" searchProperties="true"><con:settings/><con:testStep type="restrequest" name="REST Request" id="a2e66378-42f4-4652-ab99-eb195d2334cf"><con:settings/><con:config service="http://localhost:9098" methodName="Method 1" resourcePath="/cxf/demos/match" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="REST Request" id="8c2a6653-4477-4d4f-870e-d1f7749a24a1" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9098</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<p:Person xmlns:p="http://www.app.customer.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.app.customer.com PatientDemographics.xsd ">
+
+  <p:age>30</p:age>
+  <p:legalname>
+    <p:given>First</p:given>
+    <p:family>Last</p:family>
+  </p:legalname>
+  <p:fathername>Dad</p:fathername>
+  <p:mothername>Mom</p:mothername>
+  <p:gender xsi:type="p:Code">
+    <p:code>Male</p:code>
+  </p:gender>
+</p:Person>
+]]></con:request><con:originalUri>http://localhost/cxf/demos/match</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="c98f6640-6974-4d67-b0a3-2ce9740c19ee" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Simple Contains" id="bbbc91d3-f158-479a-b669-57bf04608dfe" name="Contains"><con:configuration><token>DONE</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="0f01ac2f-943f-415b-bbc2-6e48b1c7f3b2" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Test POST - invalid xml" searchProperties="true"><con:settings/><con:testStep type="restrequest" name="REST Request" id="f9bfe70c-3c14-4838-80a0-1aa211c15951"><con:settings/><con:config service="http://localhost:9098" methodName="Method 1" resourcePath="/cxf/demos/match" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="REST Request" id="264a1943-fc89-4a05-a937-52ee4fe4fd66" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9098</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<fail:Person xmlns:p="http://www.app.customer.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.app.customer.com PatientDemographics.xsd ">
+
+  <p:age>30</p:age>
+  <p:legalname>
+    <p:given>First</p:given>
+    <p:family>Last</p:family>
+  </p:legalname>
+  <p:fathername>Dad</p:fathername>
+  <p:mothername>Mom</p:mothername>
+  <p:gender xsi:type="p:Code">
+    <p:code>Male</p:code>
+  </p:gender>
+</p:Person>
+]]></con:request><con:originalUri>http://localhost/cxf/demos/match</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="adb39e47-86ee-4bca-97cb-e695d066ea29" name="Valid HTTP Status Codes"><con:configuration><codes>400</codes></con:configuration></con:assertion><con:assertion type="Simple Contains" id="ea912330-13d4-403b-bd78-675f00d19eb9" name="Contains"><con:configuration><token>Undeclared namespace prefix "fail"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

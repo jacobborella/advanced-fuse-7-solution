@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd   
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+    <cxf:bus>
+         <cxf:features>
+              <bean class="org.apache.cxf.transport.common.gzip.GZIPFeature"/>
+        </cxf:features>
+        </cxf:bus>
+    <camelContext id="outboundSOAP" trace="false" xmlns="http://camel.apache.org/schema/spring">
+        <propertyPlaceholder id="myPropertyPlaceholder" location="application.properties"/>
+        <!-- stream caching has to be enabled to process the message and log it from cxf -->
+        <redeliveryPolicyProfile id="redeliveryPolicyProfile"
+            maximumRedeliveries="3" redeliveryDelay="0" retryAttemptedLogLevel="WARN"/>
+        <onException redeliveryPolicyRef="redeliveryPolicyProfile" useOriginalMessage="true">
+            <exception>java.net.ConnectException</exception>
+            <handled>
+                <constant>true</constant>
+            </handled>
+            <to id="handleError_to1" pattern="InOnly" uri="amqp:queue:q.empi.nextgate.dlq"/>
+            <log message="Calling SOAP service failed 3 times. Writing to q.empi.nextgate.dlq"/>
+        </onException>
+        <route id="readqueue">
+            <from id="sendToNextGate_from1" uri="amqp:queue:q.empi.nextgate.out"/>
+            <to id="readqueue_to" uri="direct:sendToNextGate"/>
+        </route>
+        <route id="sendToNextGate" streamCache="true">
+            <from id="sendToNextGate_from" uri="direct:sendToNextGate"/>
+            <log id="_log2" message="Received message: ${body}"/>
+            <convertBodyTo id="_convertBodyTo1" type="com.sun.mdm.index.webservice.ExecuteMatchUpdate"/>
+            <unmarshal id="_unmarshal1">
+                <jaxb contextPath="com.sun.mdm.index.webservice"/>
+            </unmarshal>
+            <setHeader headerName="operationName" id="_setHeader1">
+                <constant>executeMatchUpdate</constant>
+            </setHeader>
+            <setHeader headerName="operationNamespace" id="_setHeader2">
+                <constant>http://webservice.index.mdm.sun.com/</constant>
+            </setHeader>
+            <to id="_to1" uri="cxf://http://localhost:8088/mockPersonEJBPortBinding?serviceClass=com.sun.mdm.index.webservice.PersonEJB&amp;dataFormat=PAYLOAD"/>
+            <log id="_log3" message="Got message from ws: ${body}"/>
+        </route>
+    </camelContext>
+</beans>

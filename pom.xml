@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> 
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.customer.app</groupId>
+  <artifactId>core</artifactId>
+  <version>1.0</version>
+
+  <packaging>pom</packaging>
+
+  <name>Customer :: Application :: Core</name>
+  <properties>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <fuse.version>7.1.0.fuse-710019-redhat-00002</fuse.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <activemq-camel.version>5.15.7</activemq-camel.version>
+    <spring-boot.version>1.5.12.RELEASE</spring-boot.version>
+    <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jboss.redhat-fuse</groupId>
+        <artifactId>fuse-springboot-bom</artifactId>
+        <version>${fuse.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <modules>
+    <module>artifacts</module>
+    <!-- the processors module is currently not used -->
+    <!--module>processors</module-->
+    <module>services</module>
+    <module>inbound</module>
+    <module>xlate</module>
+    <module>outbound</module>
+    <!-- <module>customer-features</module>-->
+  </modules>
+  
+</project>
