@@ -11,8 +11,6 @@
         <constructor-arg value="com.sun.mdm.index.webservice.PersonEJB"/>
         <constructor-arg value="true"/>
     </bean>
-    <!-- This reference just lets all of our routes use the same connection 
-		pool set up in the mq-service project -->
     <camelContext id="xlatePerson" trace="false"
         typeConverterStatisticsEnabled="true" xmlns="http://camel.apache.org/schema/spring">
         <dataFormats>

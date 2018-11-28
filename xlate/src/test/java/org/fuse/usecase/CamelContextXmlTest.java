@@ -37,9 +37,8 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
          "  xsi:schemaLocation=\"http://www.app.customer.com PatientDemographics.xsd \">" +
          "  <p:age>30</p:age>" +
          "  <p:legalname>" +
-         "    <p:given>First</p:given>" +
+         "    <p:fail>First</p:given>" +
          "    <p:family>Last</p:family>" +
-         "    <p:foo>notok</p:foo>" +
          "  </p:legalname>" +
          "  <p:fathername>Dad</p:fathername>" +
          "  <p:mothername>Mom</p:mothername>" +
@@ -53,9 +52,9 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
 	protected ProducerTemplate inputEndpoint;
 
 	@EndpointInject(uri = "mock:file:todo/out")
-    private MockEndpoint mockAccountQueue;
+    private MockEndpoint outMock;
 	@EndpointInject(uri = "mock:file:todo/dlq")
-    private MockEndpoint mockAccountQueue2;
+    private MockEndpoint deadLetterMock;
 
     static {
         System.setProperty("spring.profiles.active", "test");
@@ -72,21 +71,50 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
                 mockEndpointsAndSkip("file:*");
             }
         });
+        context.getRouteDefinitions().get(1).adviceWith(context, new AdviceWithRouteBuilder() {
+			
+            @Override
+            public void configure() throws Exception {
+                mockEndpointsAndSkip("file:*");
+            }
+        });
     }
 
-    
+    /**
+     * Verify that valid messages are written to the outbound
+     * queue.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testValidXML() throws Exception {
+        Exchange ex = new DefaultExchange(context);
+        ex.getIn().setBody(PERSON_REQ_OK);
+        outMock.setExpectedCount(1);
+        deadLetterMock.setExpectedCount(0);
+        inputEndpoint.send(ex);
+        outMock.assertIsSatisfied();
+        deadLetterMock.assertIsSatisfied();
+    }
+
+    /**
+     * Verify that invalid messages are written to the dead letter
+     * queue.
+     * 
+     * @throws Exception
+     */
     @Test
     public void testInvalidXML() throws Exception {
         Exchange ex = new DefaultExchange(context);
-        ex.getIn().setBody(PERSON_REQ_OK);
-        mockAccountQueue.setExpectedCount(1);
-        mockAccountQueue2.setExpectedCount(0);
+        ex.getIn().setBody(PERSON_REQ_INVALID_XML);
+        outMock.setExpectedCount(0);
+        deadLetterMock.setExpectedCount(1);
         inputEndpoint.send(ex);
-        mockAccountQueue.assertIsSatisfied();
-        mockAccountQueue2.assertIsSatisfied();
+        outMock.assertIsSatisfied();
+        deadLetterMock.assertIsSatisfied();
     }
 
-	@Override
+    @Override
 	protected ClassPathXmlApplicationContext createApplicationContext() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring/camel-context.xml");
 		return ctx; 
