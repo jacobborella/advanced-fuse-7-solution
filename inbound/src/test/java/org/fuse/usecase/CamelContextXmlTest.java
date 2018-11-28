@@ -32,6 +32,22 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
          "    <p:code>Male</p:code>" +
          "  </p:gender>" +
          "</p:Person>";
+    private static String PERSON_REQ_OK_SPEC_CHAR =
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<p:Person xmlns:p=\"http://www.app.customer.com\"" +
+            "  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
+            "  xsi:schemaLocation=\"http://www.app.customer.com PatientDemographics.xsd \">" +
+            "  <p:age>30</p:age>" +
+            "  <p:legalname>" +
+            "    <p:given>åæøö</p:given>" +
+            "    <p:family>Last</p:family>" +
+            "  </p:legalname>" +
+            "  <p:fathername>Dad</p:fathername>" +
+            "  <p:mothername>Mom</p:mothername>" +
+            "  <p:gender xsi:type=\"p:Code\">" +
+            "    <p:code>Male</p:code>" +
+            "  </p:gender>" +
+            "</p:Person>";
          private static String PERSON_REQ_INVALID_XML =
          "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
          "<p:Person xmlns:p=\"http://www.app.customer.com\"" +
@@ -70,6 +86,12 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
         });
     }
 
+    /**
+     * This is mostly here to show different styles of
+     * testing. I would prefer to also verify the response
+     * as done in testPersonRequestOk2().
+     * @throws Exception
+     */
     @Test
 	public void testPersonRequestOk() throws Exception {
     	mockAccountQueue.setExpectedCount(1);
@@ -77,13 +99,50 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
     	inputEndpoint.sendBody(PERSON_REQ_OK);
     	
         mockAccountQueue.assertIsSatisfied();
-        //TODO also check message
     }
 
+    /**
+     * Verify that an ok message is verified and sent
+     * to the internal queue. Also verify response and
+     * http codes.
+     * @throws Exception
+     */
+    @Test
+    public void testPersonRequestOk2() throws Exception {
+        Exchange ex = new DefaultExchange(context);
+        ex.getIn().setBody(PERSON_REQ_OK);
+        mockAccountQueue.setExpectedCount(1);
+        inputEndpoint.send(ex);
+        assertStringContains(ex.getIn().getBody().toString(), "<Comment>DONE</Comment>");
+        assertEquals("200", ex.getIn().getHeader("CamelHttpResponseCode"));
+        mockAccountQueue.assertIsSatisfied();
+    }
+
+    /**
+     * As testPersonRequestOk2, but with special characters.
+     * @throws Exception
+     */
+    @Test
+    public void testPersonRequestOkSpecialCharacters() throws Exception {
+        Exchange ex = new DefaultExchange(context);
+        ex.getIn().setBody(PERSON_REQ_OK_SPEC_CHAR);
+        mockAccountQueue.setExpectedCount(1);
+        inputEndpoint.send(ex);
+        assertStringContains(ex.getIn().getBody().toString(), "<Comment>DONE</Comment>");
+        assertEquals("200", ex.getIn().getHeader("CamelHttpResponseCode"));
+        mockAccountQueue.assertIsSatisfied();
+    }
+
+    /**
+     * Simulate that amq is down and that a proper response
+     * is sent to the client.
+     * 
+     * @throws Exception
+     */
     @Test
 	public void testAMQDown() throws Exception {
     	mockAccountQueue.whenAnyExchangeReceived(new Processor(){
-        
+    		//no matter which message received throw a JMSException
             @Override
             public void process(Exchange exchange) throws Exception {
                 throw new JMSException("No connection to queue.");
@@ -97,6 +156,16 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
         assertEquals("500", ex.getIn().getHeader("CamelHttpResponseCode"));
     }
     
+    /**
+     * Verify that xml validation is done by passing
+     * a request, which contains illegal content compared
+     * to the xsd. Verify the response.
+     * 
+     * Furthermore ensure that no data is written to the
+     * internal queue. 
+     * 
+     * @throws Exception
+     */
     @Test
     public void testInvalidXML() throws Exception {
         Exchange ex = new DefaultExchange(context);
@@ -104,10 +173,19 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
         mockAccountQueue.setExpectedCount(0);
         inputEndpoint.send(ex);
         assertStringContains(ex.getIn().getBody().toString(), "<Comment>Delivery failed because xml format was invalid.</Comment>");
-        assertEquals("500", ex.getIn().getHeader("CamelHttpResponseCode"));
+        assertEquals("400", ex.getIn().getHeader("CamelHttpResponseCode"));
         mockAccountQueue.assertIsSatisfied();
     }
 
+    /**
+     * Verify that pssing content, which isn't xml is
+     * handled by the xml validator. Verify the response
+     * 
+     * Furthermore ensure that no data is written to the
+     * internal queue.
+     * 
+     * @throws Exception
+     */
     @Test
     public void testNotXML() throws Exception {
         Exchange ex = new DefaultExchange(context);
@@ -115,7 +193,7 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
         mockAccountQueue.setExpectedCount(0);
         inputEndpoint.send(ex);
         assertStringContains(ex.getIn().getBody().toString(), "<Comment>Delivery failed because xml format was invalid.</Comment>");
-        assertEquals("500", ex.getIn().getHeader("CamelHttpResponseCode"));
+        assertEquals("400", ex.getIn().getHeader("CamelHttpResponseCode"));
         mockAccountQueue.assertIsSatisfied();
     }
 

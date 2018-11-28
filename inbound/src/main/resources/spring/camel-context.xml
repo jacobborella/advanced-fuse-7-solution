@@ -3,7 +3,7 @@
     xmlns:camel="http://camel.apache.org/schema/spring"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
     <!-- Define a traditional camel context here -->
-    <bean id="replyTransformer" class="com.redhat.usecase.service.ReplyTransformation"/>
+    <bean class="com.redhat.usecase.service.ReplyTransformation" id="replyTransformer"/>
     <camelContext id="camel" streamCache="true" xmlns="http://camel.apache.org/schema/spring">
         <propertyPlaceholder id="properties" location="route.properties"/>
         <dataFormats>
@@ -32,10 +32,10 @@
             </handled>
             <log message="Invalid xml format. Reference is ${exchangeId}."/>
             <setHeader headerName="CamelHttpResponseCode">
-                <simple>500</simple>
+                <simple>400</simple>
             </setHeader>
             <transform>
-              <constant>Delivery failed because xml format was invalid.</constant>
+                <constant>Delivery failed because xml format was invalid.</constant>
             </transform>
             <to uri="bean:replyTransformer"/>
         </onException>
@@ -46,14 +46,17 @@
         </rest>
         <route id="handleRest">
             <from id="handleRest_from" uri="direct:handleRest"/>
-            <log message="Message received ${exchangeId}: ${body}"/>
-            <to uri="validator:classpath:schemas/PatientDemographics.xsd"/>
+            <log id="_log1" message="Message received ${exchangeId}: ${body}"/>
+            <to id="_to1" uri="validator:classpath:schemas/PatientDemographics.xsd"/>
             <marshal id="handleRest_unmarshal1" ref="personFormat"/>
             <to id="handleRest_to1" pattern="InOnly" uri="amqp:queue:q.empi.deim.in"/>
-            <transform>
+            <transform id="_transform1">
                 <simple>DONE</simple>
             </transform>
-            <to uri="bean:replyTransformer"/>
+            <setHeader headerName="CamelHttpResponseCode" id="handleRest_setHeader">
+                <simple>200</simple>
+            </setHeader>
+            <to id="_to2" uri="bean:replyTransformer"/>
         </route>
     </camelContext>
 </beans>

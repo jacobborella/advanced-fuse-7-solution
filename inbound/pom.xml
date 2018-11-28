@@ -78,10 +78,6 @@
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-jacksonxml</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-jaxb</artifactId>
-		</dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-servlet</artifactId>
@@ -101,23 +97,15 @@
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
-      <artifactId>camel-test-spring</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel</groupId>
       <artifactId>camel-hl7</artifactId>
-      <version>2.21.0.fuse-710018-redhat-00001</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-dozer-starter</artifactId>
-      <version>2.21.0.fuse-710018-redhat-00001</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-test-spring</artifactId>
-      <version>2.21.0.fuse-710018-redhat-00001</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
