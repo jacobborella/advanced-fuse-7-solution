@@ -1,27 +1,29 @@
-2018-11-28 23:16:31,170 INFO  [DefaultSoapUICore] initialized soapui-settings from [/Users/jacobborella/soapui-settings.xml]
-2018-11-28 23:16:31,967 INFO  [PluginManager] 0 plugins loaded in 3 ms
-2018-11-28 23:16:31,967 INFO  [DefaultSoapUICore] All plugins loaded
-2018-11-28 23:16:33,331 INFO  [WsdlProject] Loaded project from [file:/Users/jacobborella/workspace/fuse-experienced-solution/svc-simulator/EMPL-18080-2-Simulator-soapui-project.xml]
-2018-11-28 23:16:33,338 INFO  [SoapUIMockServiceRunner] Running MockService [PersonEJBPortBinding MockService] in project [EMPL_18080_2_Simulator]
-2018-11-28 23:16:33,338 INFO  [SoapUIMockServiceRunner] Press any key to terminate
-2018-11-28 23:16:33,829 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xop.xsd with targetNamespace http://www.w3.org/2004/08/xop/include
-2018-11-28 23:16:33,850 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/XMLSchema.xsd with targetNamespace http://www.w3.org/2001/XMLSchema
-2018-11-28 23:16:33,851 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xml.xsd with targetNamespace http://www.w3.org/XML/1998/namespace
-2018-11-28 23:16:33,852 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/swaref.xsd with targetNamespace http://ws-i.org/profiles/basic/1.1/xsd
-2018-11-28 23:16:33,853 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xmime200505.xsd with targetNamespace http://www.w3.org/2005/05/xmlmime
-2018-11-28 23:16:33,854 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xmime200411.xsd with targetNamespace http://www.w3.org/2004/11/xmlmime
-2018-11-28 23:16:33,856 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEnvelope.xsd with targetNamespace http://schemas.xmlsoap.org/soap/envelope/
-2018-11-28 23:16:33,861 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd with targetNamespace http://schemas.xmlsoap.org/soap/encoding/
-2018-11-28 23:16:33,868 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEnvelope12.xsd with targetNamespace http://www.w3.org/2003/05/soap-envelope
-2018-11-28 23:16:33,872 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd with targetNamespace http://www.w3.org/2003/05/soap-encoding
-2018-11-28 23:16:33,873 INFO  [SchemaUtils] Loading schema types from [file:/Users/jacobborella/kurser/fuse/experienced-integration-labs/code/06_homework-assignment/core/artifacts/src/main/resources/META-INF/wsdl/EMPI_18080_2.wsdl]
-2018-11-28 23:16:33,873 INFO  [SchemaUtils] Getting schema file:/Users/jacobborella/kurser/fuse/experienced-integration-labs/code/06_homework-assignment/core/artifacts/src/main/resources/META-INF/wsdl/EMPI_18080_2.wsdl
-2018-11-28 23:16:33,914 INFO  [SchemaUtils] Getting schema file:/Users/jacobborella/kurser/fuse/experienced-integration-labs/code/06_homework-assignment/core/artifacts/src/main/resources/META-INF/xsd/mdm.xsd
-2018-11-28 23:16:34,360 INFO  [WsdlMockDispatcher] Mounted WSDL for interface [PersonEJBPortBinding] at [/mockPersonEJBPortBinding?WSDL]
-2018-11-28 23:16:34,381 INFO  [jetty] Logging to com.eviware.soapui.support.log.JettyLogger@1e461e41 via com.eviware.soapui.support.log.JettyLogger
-2018-11-28 23:16:34,426 INFO  [jetty] jetty-6.1.26
-2018-11-28 23:16:34,468 INFO  [jetty] Started JettyMockEngine$SoapUIConnector@0.0.0.0:8088
-2018-11-28 23:16:34,469 INFO  [JettyMockEngine] Started mockService [PersonEJBPortBinding MockService] on port [8088] at path [/mockPersonEJBPortBinding]
-2018-11-28 23:16:34,469 INFO  [SoapUIMockServiceRunner] MockService started on port 8088 at path [/mockPersonEJBPortBinding]
-2018-11-28 23:16:34,469 INFO  [SoapUIMockServiceRunner] Started 1 runner
-2018-11-28 23:44:50,807 INFO  [SoapUIMockServiceRunner] Handled request 1; [executeMatchUpdate] with [Response 1] in [51ms] at [2018-11-28 23:44:50.741]
+2018-11-28 23:53:02,195 INFO  [DefaultSoapUICore] initialized soapui-settings from [/Users/jacobborella/soapui-settings.xml]
+2018-11-28 23:53:04,881 INFO  [PluginManager] 0 plugins loaded in 2 ms
+2018-11-28 23:53:04,881 INFO  [DefaultSoapUICore] All plugins loaded
+2018-11-28 23:53:08,079 INFO  [WsdlProject] Loaded project from [file:/Users/jacobborella/workspace/fuse-experienced-solution/svc-simulator/EMPL-18080-2-Simulator-soapui-project.xml]
+2018-11-28 23:53:08,091 INFO  [SoapUIMockServiceRunner] Running MockService [PersonEJBPortBinding MockService] in project [EMPL_18080_2_Simulator]
+2018-11-28 23:53:08,091 INFO  [SoapUIMockServiceRunner] Press any key to terminate
+2018-11-28 23:53:09,286 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xop.xsd with targetNamespace http://www.w3.org/2004/08/xop/include
+2018-11-28 23:53:09,335 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/XMLSchema.xsd with targetNamespace http://www.w3.org/2001/XMLSchema
+2018-11-28 23:53:09,336 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xml.xsd with targetNamespace http://www.w3.org/XML/1998/namespace
+2018-11-28 23:53:09,338 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/swaref.xsd with targetNamespace http://ws-i.org/profiles/basic/1.1/xsd
+2018-11-28 23:53:09,342 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xmime200505.xsd with targetNamespace http://www.w3.org/2005/05/xmlmime
+2018-11-28 23:53:09,349 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/xmime200411.xsd with targetNamespace http://www.w3.org/2004/11/xmlmime
+2018-11-28 23:53:09,351 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEnvelope.xsd with targetNamespace http://schemas.xmlsoap.org/soap/envelope/
+2018-11-28 23:53:09,355 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding.xsd with targetNamespace http://schemas.xmlsoap.org/soap/encoding/
+2018-11-28 23:53:09,365 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEnvelope12.xsd with targetNamespace http://www.w3.org/2003/05/soap-envelope
+2018-11-28 23:53:09,523 INFO  [SchemaUtils] Added default schema from file:/Applications/SoapUI-5.4.0.app/Contents/java/app/bin/soapui-5.4.0.jar!/com/eviware/soapui/resources/xsds/soapEncoding12.xsd with targetNamespace http://www.w3.org/2003/05/soap-encoding
+2018-11-28 23:53:09,525 INFO  [SchemaUtils] Loading schema types from [file:/Users/jacobborella/kurser/fuse/experienced-integration-labs/code/06_homework-assignment/core/artifacts/src/main/resources/META-INF/wsdl/EMPI_18080_2.wsdl]
+2018-11-28 23:53:09,525 INFO  [SchemaUtils] Getting schema file:/Users/jacobborella/kurser/fuse/experienced-integration-labs/code/06_homework-assignment/core/artifacts/src/main/resources/META-INF/wsdl/EMPI_18080_2.wsdl
+2018-11-28 23:53:09,568 INFO  [SchemaUtils] Getting schema file:/Users/jacobborella/kurser/fuse/experienced-integration-labs/code/06_homework-assignment/core/artifacts/src/main/resources/META-INF/xsd/mdm.xsd
+2018-11-28 23:53:11,187 INFO  [WsdlMockDispatcher] Mounted WSDL for interface [PersonEJBPortBinding] at [/mockPersonEJBPortBinding?WSDL]
+2018-11-28 23:53:11,300 INFO  [jetty] Logging to com.eviware.soapui.support.log.JettyLogger@1e461e41 via com.eviware.soapui.support.log.JettyLogger
+2018-11-28 23:53:11,417 INFO  [jetty] jetty-6.1.26
+2018-11-28 23:53:11,592 INFO  [jetty] Started JettyMockEngine$SoapUIConnector@0.0.0.0:8088
+2018-11-28 23:53:11,604 INFO  [JettyMockEngine] Started mockService [PersonEJBPortBinding MockService] on port [8088] at path [/mockPersonEJBPortBinding]
+2018-11-28 23:53:11,604 INFO  [SoapUIMockServiceRunner] MockService started on port 8088 at path [/mockPersonEJBPortBinding]
+2018-11-28 23:53:11,605 INFO  [SoapUIMockServiceRunner] Started 1 runner
+2018-11-28 23:55:11,393 INFO  [SoapUIMockServiceRunner] Handled request 1; [executeMatchUpdate] with [Response 1] in [28ms] at [2018-11-28 23:55:11.354]
+2018-11-28 23:58:32,201 INFO  [DefaultSoapUICore] Reloading updated settings file
+2018-11-28 23:58:32,207 INFO  [DefaultSoapUICore] initialized soapui-settings from [/Users/jacobborella/soapui-settings.xml]
