@@ -27,3 +27,6 @@
 2018-11-28 23:55:11,393 INFO  [SoapUIMockServiceRunner] Handled request 1; [executeMatchUpdate] with [Response 1] in [28ms] at [2018-11-28 23:55:11.354]
 2018-11-28 23:58:32,201 INFO  [DefaultSoapUICore] Reloading updated settings file
 2018-11-28 23:58:32,207 INFO  [DefaultSoapUICore] initialized soapui-settings from [/Users/jacobborella/soapui-settings.xml]
+2018-11-29 00:17:23,846 INFO  [JettyMockEngine] Stopped MockService [PersonEJBPortBinding MockService] on port [8088]
+2018-11-29 00:17:23,878 INFO  [SoapUIMockServiceRunner] MockService stopped, handled 1 requests
+2018-11-29 00:17:23,884 INFO  [SoapUIMockServiceRunner] time taken: 1455744ms
